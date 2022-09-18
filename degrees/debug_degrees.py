@@ -17,7 +17,7 @@ from degrees import load_data, person_id_for_name, shortest_path, names, people,
 def main():
     if len(sys.argv) > 2:
         sys.exit("Usage: python degrees.py [directory]")
-    directory = sys.argv[1] if len(sys.argv) == 2 else "F:\Dropbox\Programming\cs50\python\CS50AI\degrees\large"
+    directory = sys.argv[1] if len(sys.argv) == 2 else "large"
 
     # Load data from files into memory
     print("Loading data...")
