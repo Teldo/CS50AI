@@ -4,6 +4,7 @@ Tic Tac Toe Player
 
 from copy import deepcopy
 import math
+import time
 
 X = "X"
 O = "O"
@@ -113,6 +114,8 @@ def max_value(board):
     v = -math.inf
     for action in actions(board):
         v = max(v, min_value(result(board,action)))
+        if v == 1:
+            return v
     return v
 
 def min_value(board):
@@ -121,22 +124,34 @@ def min_value(board):
     v = math.inf
     for action in actions(board):
         v = min(v, max_value(result(board,action)))
+        if v == -1:
+            return v
     return v
 
 def minimax(board):
     """
     Returns the optimal action for the current player on the board.
     """
+    # measure runtime in ms
+    start = time.time()
     if terminal(board):
         return None
     if player(board) == X:
-        v = max_value(board)
+        if board == initial_state():
+            return (1,1)
+        value = max_value(board)
         for action in actions(board):
-            if v == min_value(result(board, action)):
+            if value == min_value(result(board, action)):
+                end = time.time()
+                print("Runtime: ", (end - start) * 1000, "ms")
+                print("Value: ", value)
                 return action
     else:
-        v = min_value(board)
+        value = min_value(board)
         for action in actions(board):
-            if v == max_value(result(board, action)):
+            if value == max_value(result(board, action)):
+                end = time.time()
+                print("Runtime: ", (end - start) * 1000, "ms")
+                print("Value: ", value)
                 return action
     
